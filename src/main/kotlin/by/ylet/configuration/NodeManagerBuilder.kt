@@ -3,12 +3,13 @@ package by.ylet.configuration
 import by.ylet.api.NodeManager
 import by.ylet.api.impl.BasicNodeManager
 import by.ylet.Constants.COLLECTION_NAME
-import by.ylet.Constants.PATH_PROPERTY_NAME
-import by.ylet.Constants.TYPE_PROPERTY_NAME
+import by.ylet.Constants.PATH_PROPERTY_PATH
+import by.ylet.Constants.TYPE_PROPERTY_PATH
 import by.ylet.api.impl.help.StoreInstanceHolderHolder
 import by.ylet.configuration.default.DefaultStoreConfiguration.STORE_FILE_PATH
 import by.ylet.configuration.default.DefaultStoreConfiguration.STORE_PASSWORD
 import by.ylet.configuration.default.DefaultStoreConfiguration.STORE_USER_NAME
+import by.ylet.core.DefaultTypeManager
 import by.ylet.error.RepositoryException
 import by.ylet.tool.OperationUtils.safeOperation
 import org.dizitart.no2.IndexOptions
@@ -17,9 +18,9 @@ import org.dizitart.no2.Nitrite
 import org.dizitart.no2.NitriteCollection
 
 object NodeManagerBuilder {
-    private val INDEX_CONFIG = mapOf<String, IndexType>(
-        PATH_PROPERTY_NAME to IndexType.Unique,
-        TYPE_PROPERTY_NAME to IndexType.NonUnique
+    private val INDEX_CONFIG = mapOf(
+        PATH_PROPERTY_PATH to IndexType.Unique,
+        TYPE_PROPERTY_PATH to IndexType.NonUnique
     )
 
     private var path: String = STORE_FILE_PATH
@@ -45,7 +46,7 @@ object NodeManagerBuilder {
                 val db = createDatabase()
                 initDatabase(db)
                 StoreInstanceHolderHolder.keepInstance(db)
-                BasicNodeManager(db)
+                BasicNodeManager(db, DefaultTypeManager())
             }
         }
     }
@@ -62,7 +63,7 @@ object NodeManagerBuilder {
 
     private fun initIndex(collection: NitriteCollection) {
         INDEX_CONFIG.forEach { (index, indexType) ->
-            if (collection.hasIndex(index)) {
+            if (!collection.hasIndex(index)) {
                 collection.createIndex(index, IndexOptions.indexOptions(indexType, false))
             }
         }
