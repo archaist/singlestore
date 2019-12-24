@@ -9,4 +9,5 @@ internal object Constants {
     const val NAME_PROPERTY_PATH = "name.value"
     const val NAME_PROPERTY_NAME = "name"
     const val VALUE_PROPERTY_NAME = "value"
+    const val NODE_PATH_SEPARATOR = "/"
 }

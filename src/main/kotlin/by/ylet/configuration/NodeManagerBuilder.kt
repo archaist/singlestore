@@ -5,7 +5,7 @@ import by.ylet.api.impl.BasicNodeManager
 import by.ylet.Constants.COLLECTION_NAME
 import by.ylet.Constants.PATH_PROPERTY_PATH
 import by.ylet.Constants.TYPE_PROPERTY_PATH
-import by.ylet.api.impl.help.StoreInstanceHolderHolder
+import by.ylet.api.impl.help.StoreInstanceHolder
 import by.ylet.configuration.default.DefaultStoreConfiguration.STORE_FILE_PATH
 import by.ylet.configuration.default.DefaultStoreConfiguration.STORE_PASSWORD
 import by.ylet.configuration.default.DefaultStoreConfiguration.STORE_USER_NAME
@@ -45,7 +45,7 @@ object NodeManagerBuilder {
                 checkForExist()
                 val db = createDatabase()
                 initDatabase(db)
-                StoreInstanceHolderHolder.keepInstance(db)
+                StoreInstanceHolder.keepInstance(db)
                 BasicNodeManager(db, DefaultTypeManager())
             }
         }
@@ -70,7 +70,7 @@ object NodeManagerBuilder {
     }
 
     private fun checkForExist() {
-        if (StoreInstanceHolderHolder.isInstanceStored()) {
+        if (StoreInstanceHolder.isInstanceStored()) {
             throw RepositoryException("Instance already created")
         }
     }

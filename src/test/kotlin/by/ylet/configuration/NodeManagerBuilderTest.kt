@@ -24,7 +24,7 @@ class NodeManagerBuilderTest {
                     "path" to "/content/homePage2",
                     "name" to "Home Page",
                     "type" to "html"
-                ), null, null
+                )
             )
         )
         //nodeManager.test(document)
@@ -36,19 +36,30 @@ class NodeManagerBuilderTest {
     @Test
     @Ignore
     fun testTypes() {
-        val tm: TypeManager = DefaultTypeManager();
-        val document = tm.nodeToDocument(
-            Node(
-                "/content/homePage1", "Home Page", "html",
-                mapOf(
-                    "data" to byteArrayOf(10, 12, 55, 72),
-                    "path" to "/content/homePage1",
-                    "name" to "Home Page",
-                    "type" to "html"
-                ), null, null
+        val node = Node(
+            "/content/homePage1", "Home Page", "html",
+            mapOf(
+                "data" to byteArrayOf(10, 12, 55, 72),
+                "path" to "/content/homePage1",
+                "name" to "Home Page",
+                "type" to "html"
             )
         )
-        println(document)
+        val CHILD_NODES_PATH_PATTERN = "^/content/[a-zA-Z0-9_-]+/?$"
+        println(String.format(CHILD_NODES_PATH_PATTERN, "content"))
+//        val tm: TypeManager = DefaultTypeManager();
+//        val document = tm.nodeToDocument(
+//            Node(
+//                "/content/homePage1", "Home Page", "html",
+//                mapOf(
+//                    "data" to byteArrayOf(10, 12, 55, 72),
+//                    "path" to "/content/homePage1",
+//                    "name" to "Home Page",
+//                    "type" to "html"
+//                ), null, null
+//            )
+//        )
+//        println(document)
 
     }
 }

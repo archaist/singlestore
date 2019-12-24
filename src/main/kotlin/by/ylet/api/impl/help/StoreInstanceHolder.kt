@@ -2,7 +2,7 @@ package by.ylet.api.impl.help
 
 import org.dizitart.no2.Nitrite
 
-internal object StoreInstanceHolderHolder {
+internal object StoreInstanceHolder {
     @Volatile
     private var instance: Nitrite? = null
 
@@ -10,8 +10,8 @@ internal object StoreInstanceHolderHolder {
 
     fun keepInstance(instance: Nitrite) {
         synchronized(this) {
-            if (StoreInstanceHolderHolder.instance == null) {
-                StoreInstanceHolderHolder.instance = instance
+            if (StoreInstanceHolder.instance == null) {
+                StoreInstanceHolder.instance = instance
             }
         }
     }

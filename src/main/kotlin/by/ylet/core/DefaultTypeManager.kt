@@ -38,7 +38,7 @@ internal class DefaultTypeManager : TypeManager {
                 }
             }
         }
-        return Node(path, name, type, properties, null, null)
+        return Node(path, name, type, properties)
     }
 
     private fun resolveType(value: Any, name: String): PropertyTypes {
